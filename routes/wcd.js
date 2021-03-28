@@ -8,38 +8,20 @@ if (typeof localStorage === "undefined" || localStorage === null) {
 }
 /* GET home page. */
 router.get("/:anything", async function (req, res, next) {
-  if (localStorage.getItem("user")) {
-    console.log({ user: JSON.parse(localStorage.getItem("user")) });
-    const user = await axios
-      // .post("http://localhost:5000/getUser", {
-      .get("https://ss-backend-2021.herokuapp.com/getUser", {
-        headers: auth.authHeader(localStorage),
-      })
-      .then((response) => {
-        console.log("got token: " + response.data);
-        return response.data;
-      })
-      .catch((err) => {
-        console.log("error in axios /users/: " + err);
-        return err;
-      });
-    res.render("users", { user: user });
-  } else {
-    const user = await axios
-      // .post("http://localhost:5000/getUser", {
-      .get("https://ss-backend-2021.herokuapp.com/getUser", {
-        headers: auth.authHeader(localStorage),
-      })
-      .then((response) => {
-        console.log("got token: " + response.data);
-        return response.data;
-      })
-      .catch((err) => {
-        console.log("error in axios /users/: " + err);
-        return err;
-      });
-    res.render("users", { user: user });
-  }
+  const user = await axios
+    // .post("http://localhost:5000/getUser", {
+    .get("https://ss-backend-2021.herokuapp.com/getUser", {
+      headers: auth.authHeader(localStorage),
+    })
+    .then((response) => {
+      console.log("got token: " + response.data);
+      return response.data;
+    })
+    .catch((err) => {
+      console.log("error in axios /users/: " + err);
+      return err;
+    });
+  res.render("users", { user: user });
 });
 
 module.exports = router;
