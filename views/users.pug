@@ -1,7 +1,11 @@
 extends layout
 
 block content
-    div.text-center
+        include navbar
         div(class="form-signin")
-            div.text-center
-                p wellCome Dear #{username}!
+            div.text-left
+                p id: #{user.id}
+                p username: #{user.username}
+                p email: #{user.email}
+                p roles: #{user.roles}
+                p accessToken: #{user.accessToken}
