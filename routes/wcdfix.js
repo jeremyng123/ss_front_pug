@@ -10,9 +10,13 @@ if (typeof localStorage === "undefined" || localStorage === null) {
 router.get("/:anything", async function (req, res, next) {
   const user = await axios
     // .post("http://localhost:5000/getUser", {
-    .get("https://ss-backend-2021.herokuapp.com/getUser", {
-      headers: auth.authHeader(localStorage),
-    })
+    .get(
+      "https://ss-backend-2021.herokuapp.com/getUser",
+      {
+        headers: auth.authHeader(localStorage),
+      },
+      { setTimeout: 5 }
+    )
     .then((response) => {
       // console.log("got token: " + response.data);
       return response.data;
