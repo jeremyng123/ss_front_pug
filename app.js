@@ -43,7 +43,14 @@ app.use(function (req, res, next) {
   next();
 });
 
-app.use("/", indexRouter);
+app.use(
+  "/",
+  function (req, res, next) {
+    res.setHeader("Cache-Control", "no-cache, no-store");
+    next();
+  },
+  indexRouter
+);
 app.use("/users", usersRouter);
 app.use("/wcd", wcdRouter);
 app.use("/wcdfix", wcdFIXEDRouter);
