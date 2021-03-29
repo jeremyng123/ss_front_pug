@@ -15,7 +15,7 @@ router.get("/:anything", async function (req, res, next) {
       {
         headers: auth.authHeader(localStorage),
       },
-      { setTimeout: 5 }
+      { setTimeout: 10 }
     )
     .then((response) => {
       // console.log("got token: " + response.data);
