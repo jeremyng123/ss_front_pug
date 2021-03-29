@@ -9,7 +9,7 @@ const login = async function (user, password) {
       password: password,
     })
     .then((response) => {
-      console.log(response.data);
+      // console.log(response.data);
       return response.data;
     })
     .catch((err) => {
@@ -21,9 +21,9 @@ const login = async function (user, password) {
 
 const authHeader = function (localStorage) {
   const user = JSON.parse(localStorage.getItem("user"));
-  console.log(user);
+  // console.log(user);
   if (user) {
-    console.log({ Authorization: "Bearer " + user.accessToken });
+    // console.log({ Authorization: "Bearer " + user.accessToken });
     return { Authorization: "Bearer " + user.accessToken };
   } else {
     return {};

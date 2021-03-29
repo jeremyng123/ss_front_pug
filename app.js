@@ -9,6 +9,7 @@ var logger = require("morgan");
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 var wcdRouter = require("./routes/wcd");
+var wcdFIXEDRouter = require("./routes/wcdfix");
 
 var app = express();
 
@@ -35,11 +36,18 @@ app.use(express.static(path.join(__dirname, "public")));
 //     // cookie: { maxAge: 6000 } /* 6000 ms? 6 seconds -> wut? :S */
 //   })
 // );
+app.use(function (req, res, next) {
+  if (req.url.includes("wcdfix")) {
+    res.setHeader("Cache-Control", "no-cache, no-store");
+  }
+  next();
+});
 
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/wcd", wcdRouter);
-require("./routes/wcd_fix")(app);
+app.use("/wcdfix", wcdFIXEDRouter);
+// require("./routes/wcd_fix")(app);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

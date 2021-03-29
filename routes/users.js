@@ -11,18 +11,18 @@ const jwt = require("jsonwebtoken");
 /* GET users listing. */
 router.get("/", async function (req, res, next) {
   if (localStorage.getItem("user")) {
-    console.log({ user: JSON.parse(localStorage.getItem("user")) });
+    // console.log({ user: JSON.parse(localStorage.getItem("user")) });
     const user = await axios
       // .post("http://localhost:5000/getUser", {
       .get("https://ss-backend-2021.herokuapp.com/getUser", {
         headers: auth.authHeader(localStorage),
       })
       .then((response) => {
-        console.log("got token: " + response.data);
+        // console.log("got token: " + response.data);
         return response.data;
       })
       .catch((err) => {
-        console.log("error in axios /users/: " + err);
+        console.log("error in users axios /users/: " + err);
         return err;
       });
     res.render("users", { user: user });

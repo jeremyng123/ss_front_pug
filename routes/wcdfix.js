@@ -21,6 +21,7 @@ router.get("/:anything", async function (req, res, next) {
       console.log("error in wcd /users/: " + err);
       return err;
     });
+  // res.set("Cache-Control", "no-cache", "no-store");
   res.render("users", { user: user });
 });
 
