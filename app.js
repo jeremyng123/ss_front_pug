@@ -48,10 +48,10 @@ app.use(function (req, res, next) {
 
 // app.use(
 //   "/",
-//   function (req, res, next) {
-//     res.setHeader("Cache-Control", "no-cache, no-store");
-//     next();
-//   },
+// function (req, res, next) {
+//   res.setHeader("Cache-Control", "no-cache, no-store");
+//   next();
+// },
 //   indexRouter
 // );
 // app.use(
@@ -63,8 +63,22 @@ app.use(function (req, res, next) {
 //   wcdFIXEDRouter
 // );
 app.use("/", indexRouter);
-app.use("/wcdfix", wcdFIXEDRouter);
-app.use("/users", usersRouter);
+app.use(
+  "/wcdfix",
+  function (req, res, next) {
+    res.setHeader("Cache-Control", "no-cache, no-store");
+    next();
+  },
+  wcdFIXEDRouter
+);
+app.use(
+  "/users",
+  function (req, res, next) {
+    res.setHeader("Cache-Control", "no-cache, no-store");
+    next();
+  },
+  usersRouter
+);
 app.use("/wcd", wcdRouter);
 
 // require("./routes/wcd_fix")(app);
