@@ -36,33 +36,37 @@ app.use(express.static(path.join(__dirname, "public")));
 //     // cookie: { maxAge: 6000 } /* 6000 ms? 6 seconds -> wut? :S */
 //   })
 // );
-// app.use(function (req, res, next) {
-//   if (req.url.includes("/wcdfix")) {
-//     res.setHeader("Cache-Control", "no-cache, no-store");
-//   } else if (req.url.match("/")) {
-//     res.setHeader("Cache-Control", "no-cache, no-store");
-//   }
-//   next();
-// });
-
-app.use(
-  "/",
-  function (req, res, next) {
+app.use(function (req, res, next) {
+  if (req.url.includes("/wcdfix")) {
     res.setHeader("Cache-Control", "no-cache, no-store");
-    next();
-  },
-  indexRouter
-);
+  }
+  // else if (req.url.match("/")) {
+  //   res.setHeader("Cache-Control", "no-cache, no-store");
+  // }
+  next();
+});
+
+// app.use(
+//   "/",
+//   function (req, res, next) {
+//     res.setHeader("Cache-Control", "no-cache, no-store");
+//     next();
+//   },
+//   indexRouter
+// );
+// app.use(
+//   "/wcdfix",
+//   function (req, res, next) {
+//     res.setHeader("Cache-Control", "no-cache, no-store");
+//     next();
+//   },
+//   wcdFIXEDRouter
+// );
+app.use("/", indexRouter);
+app.use("/wcdfix", wcdFIXEDRouter);
 app.use("/users", usersRouter);
 app.use("/wcd", wcdRouter);
-app.use(
-  "/wcdfix",
-  function (req, res, next) {
-    res.setHeader("Cache-Control", "no-cache, no-store");
-    next();
-  },
-  wcdFIXEDRouter
-);
+
 // require("./routes/wcd_fix")(app);
 
 // catch 404 and forward to error handler
