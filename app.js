@@ -37,20 +37,15 @@ app.use(express.static(path.join(__dirname, "public")));
 //   })
 // );
 app.use(function (req, res, next) {
-  if (req.url.includes("wcdfix")) {
+  if (req.url.includes("/wcdfix")) {
+    res.setHeader("Cache-Control", "no-cache, no-store");
+  } else if (req.url.match("/")) {
     res.setHeader("Cache-Control", "no-cache, no-store");
   }
   next();
 });
 
-app.use(
-  "/",
-  function (req, res, next) {
-    res.setHeader("Cache-Control", "no-cache, no-store");
-    next();
-  },
-  indexRouter
-);
+app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/wcd", wcdRouter);
 app.use("/wcdfix", wcdFIXEDRouter);
